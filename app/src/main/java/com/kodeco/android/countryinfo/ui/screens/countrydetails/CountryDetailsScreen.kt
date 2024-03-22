@@ -26,7 +26,7 @@ import com.kodeco.android.countryinfo.sample.sampleCountry
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CountryDetailsScreen(
-    country: Country,
+    viewModel: CountryDetailsViewModel,
     onNavigateUp: () -> Unit,
 ) {
     Scaffold(
@@ -70,8 +70,8 @@ fun CountryDetailsScreen(
 @Preview
 @Composable
 fun CountryDetailsScreenPreview() {
-    CountryDetailsScreen(
-        country = sampleCountry,
-        onNavigateUp = {},
-    )
+//    CountryDetailsScreen(
+//        country = sampleCountry,
+//        onNavigateUp = {},
+//    )
 }
