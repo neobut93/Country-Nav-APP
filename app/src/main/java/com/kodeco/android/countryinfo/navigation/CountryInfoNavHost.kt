@@ -31,23 +31,23 @@ fun CountryInfoNavHost(
                 }
             )
         }
-        //todo is this correct?
-        composable("details/{countryIndex}",
+
+        composable(
+            "details/{countryIndex}",
             arguments = listOf(navArgument("countryIndex") {
                 type = NavType.IntType
             })
+        ) {
+            CountryDetailsScreen(
+                viewModel = viewModel(
+                    factory = CountryDetailsViewModel.CountryDetailsViewModelFactory(
+                        repository = repository,
+                        countryId = it.arguments?.getInt("countryIndex") ?: 0
+                    ),
+                )
             ) {
-            CountryDetailsScreen(viewModel =  viewModel(
-                factory = CountryDetailsViewModel.CountryDetailsViewModelFactory(
-                    repository = repository,
-                    countryId = it.arguments?.getInt("countryIndex") ?: 0
-                ),
-            )) {
-
+                navController.navigateUp()
             }
         }
     }
-
-
-
 }

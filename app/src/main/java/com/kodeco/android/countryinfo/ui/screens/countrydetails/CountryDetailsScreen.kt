@@ -54,7 +54,7 @@ fun CountryDetailsScreen(
             item { Text(text = "Capital: ${viewModel.getCountry.value!!.mainCapital}") }
             item { Text(text = "Population: ${viewModel.getCountry.value!!.population}") }
             item { Text(text = "Area: ${viewModel.getCountry.value!!.area}") }
-            item { 
+            item {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(viewModel.getCountry.value!!.flagUrl)

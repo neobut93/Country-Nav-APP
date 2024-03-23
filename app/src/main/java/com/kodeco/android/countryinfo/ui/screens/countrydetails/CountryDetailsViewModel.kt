@@ -2,11 +2,9 @@ package com.kodeco.android.countryinfo.ui.screens.countrydetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.kodeco.android.countryinfo.repositories.CountryRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 
 class CountryDetailsViewModel(
     private val countryId: Int,
