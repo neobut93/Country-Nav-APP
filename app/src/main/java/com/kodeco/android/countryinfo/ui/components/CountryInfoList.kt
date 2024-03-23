@@ -25,7 +25,8 @@ import com.kodeco.android.countryinfo.sample.sampleCountries
 fun CountryInfoList(
     countries: List<Country>,
     onRefresh: () -> Unit,
-    onCountryRowTap: (Int) -> Unit
+    onCountryRowTap: (Int) -> Unit,
+    onTapAbout: () -> Unit
 ) {
     var selectedCountry: Country? by remember { mutableStateOf(null) }
 
@@ -41,6 +42,11 @@ fun CountryInfoList(
                 onClick = onRefresh,
             ) {
                 Text(text = "Refresh")
+            }
+            Button(
+                onClick = onTapAbout,
+            ) {
+                Text(text = "Navigate")
             }
 
         }
@@ -63,6 +69,7 @@ fun CountryInfoListPreview() {
     CountryInfoList(
         countries = sampleCountries,
         onRefresh = {},
-        onCountryRowTap = {}
+        onCountryRowTap = {},
+        onTapAbout = {}
     )
 }

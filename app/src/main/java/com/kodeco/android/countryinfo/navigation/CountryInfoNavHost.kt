@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.kodeco.android.countryinfo.repositories.CountryRepository
+import com.kodeco.android.countryinfo.ui.screens.about.AboutScreen
 import com.kodeco.android.countryinfo.ui.screens.countrydetails.CountryDetailsScreen
 import com.kodeco.android.countryinfo.ui.screens.countrydetails.CountryDetailsViewModel
 import com.kodeco.android.countryinfo.ui.screens.countryinfo.CountryInfoScreen
@@ -28,7 +29,8 @@ fun CountryInfoNavHost(
                 ),
                 onCountryRowTap = { countryIndex ->
                     navController.navigate("details/$countryIndex")
-                }
+                },
+                onTapAbout = {navController.navigate("about")}
             )
         }
 
@@ -49,5 +51,9 @@ fun CountryInfoNavHost(
                 navController.navigateUp()
             }
         }
+
+        composable("about") { AboutScreen() {
+            navController.navigateUp()
+        } }
     }
 }

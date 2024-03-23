@@ -16,7 +16,8 @@ import kotlinx.coroutines.flow.flow
 @Composable
 fun CountryInfoScreen(
     viewModel: CountryInfoViewModel,
-    onCountryRowTap: (Int) -> Unit
+    onCountryRowTap: (Int) -> Unit,
+    onTapAbout: () -> Unit
 ) {
     val state = viewModel.uiState.collectAsState()
 
@@ -26,7 +27,8 @@ fun CountryInfoScreen(
             is CountryInfoState.Success -> CountryInfoList(
                 countries = countryInfoState.countries,
                 onRefresh = { viewModel.fetchCountries() },
-                onCountryRowTap = onCountryRowTap
+                onCountryRowTap = onCountryRowTap,
+                onTapAbout = onTapAbout
             )
             is CountryInfoState.Error -> Error(countryInfoState.error) {
                 viewModel.fetchCountries()
@@ -50,6 +52,7 @@ fun CountryInfoScreenPreview() {
                 }
             },
         ),
+        {},
         {}
     )
 }
