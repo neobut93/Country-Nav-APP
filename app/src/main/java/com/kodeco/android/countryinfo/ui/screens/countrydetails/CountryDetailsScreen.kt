@@ -1,5 +1,6 @@
 package com.kodeco.android.countryinfo.ui.screens.countrydetails
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,6 +24,7 @@ import coil.request.ImageRequest
 import com.kodeco.android.countryinfo.models.Country
 import com.kodeco.android.countryinfo.sample.sampleCountry
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CountryDetailsScreen(
@@ -33,7 +35,7 @@ fun CountryDetailsScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = country.commonName)
+                    Text(text = viewModel.getCountry.value!!.commonName)
                 },
                 navigationIcon = {
                     IconButton(onClick = {
@@ -49,13 +51,13 @@ fun CountryDetailsScreen(
         },
     ) { padding ->
         LazyColumn(modifier = Modifier.padding(padding)) {
-            item { Text(text = "Capital: ${country.mainCapital}") }
-            item { Text(text = "Population: ${country.population}") }
-            item { Text(text = "Area: ${country.area}") }
+            item { Text(text = "Capital: ${viewModel.getCountry.value!!.mainCapital}") }
+            item { Text(text = "Population: ${viewModel.getCountry.value!!.population}") }
+            item { Text(text = "Area: ${viewModel.getCountry.value!!.area}") }
             item { 
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(country.flagUrl)
+                        .data(viewModel.getCountry.value!!.flagUrl)
                         .crossfade(true)
                         .build(),
                     contentDescription = "Flag",

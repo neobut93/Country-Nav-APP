@@ -40,7 +40,7 @@ fun CountryInfoNavHost(
             CountryDetailsScreen(viewModel =  viewModel(
                 factory = CountryDetailsViewModel.CountryDetailsViewModelFactory(
                     repository = repository,
-                    countryId = it.arguments?.getInt("countryIndex") ?: 1
+                    countryId = it.arguments?.getInt("countryIndex") ?: 0
                 ),
             )) {
 

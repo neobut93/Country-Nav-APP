@@ -25,9 +25,9 @@ fun CountryInfoScreen(
             is CountryInfoState.Loading -> Loading(countryInfoState.uptime)
             is CountryInfoState.Success -> CountryInfoList(
                 countries = countryInfoState.countries,
-            ) {
-                viewModel.fetchCountries()
-            }
+                onRefresh = { viewModel.fetchCountries() },
+                onCountryRowTap = onCountryRowTap
+            )
             is CountryInfoState.Error -> Error(countryInfoState.error) {
                 viewModel.fetchCountries()
             }

@@ -28,10 +28,9 @@ import com.kodeco.android.countryinfo.ui.screens.countrydetails.CountryDetailsSc
 fun CountryInfoList(
     countries: List<Country>,
     onRefresh: () -> Unit,
+    onCountryRowTap: (Int) -> Unit
 ) {
     var selectedCountry: Country? by remember { mutableStateOf(null) }
-    var tapCounter by remember { mutableIntStateOf(0) }
-    var backCounter by remember { mutableIntStateOf(0) }
 
     Column {
         Row(
@@ -41,46 +40,39 @@ fun CountryInfoList(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
-                text = "Taps: $tapCounter",
-                textAlign = TextAlign.Start,
-            )
+
             Button(
                 onClick = onRefresh,
             ) {
                 Text(text = "Refresh")
             }
-            Text(
-                text = "Back: $backCounter",
-                textAlign = TextAlign.End,
-            )
+
         }
 
-        selectedCountry?.let { country ->
-            CountryDetailsScreen(
-                country = country,
-            ) {
-                selectedCountry = null
-                backCounter++
-            }
-        } ?: run {
+//        selectedCountry?.let { country ->
+//            CountryDetailsScreen(
+//                country = country,
+//            ) {
+//                selectedCountry = null
+//            }
+//        } ?: run {
             LazyColumn {
                 items(countries) { country ->
                     CountryInfoRow(country) {
                         selectedCountry = country
-                        tapCounter++
+                        onCountryRowTap(0)
                     }
                 }
             }
         }
     }
-}
+
 
 @Preview
 @Composable
 fun CountryInfoListPreview() {
-    CountryInfoList(
-        countries = sampleCountries,
-        onRefresh = {},
-    )
+//    CountryInfoList(
+//        countries = sampleCountries,
+//        onRefresh = {},
+//    )
 }
