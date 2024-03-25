@@ -30,7 +30,7 @@ fun CountryInfoNavHost(
                 onCountryRowTap = { countryIndex ->
                     navController.navigate("details/$countryIndex")
                 },
-                onTapAbout = {navController.navigate("about")}
+                onTapAbout = { navController.navigate("about") }
             )
         }
 
@@ -52,8 +52,10 @@ fun CountryInfoNavHost(
             }
         }
 
-        composable("about") { AboutScreen() {
-            navController.navigateUp()
-        } }
+        composable("about") {
+            AboutScreen() {
+                navController.navigateUp()
+            }
+        }
     }
 }
