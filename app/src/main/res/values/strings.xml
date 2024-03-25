@@ -3,6 +3,6 @@
     <string name="x_axis_slider_title">X Axis: %d%%</string>
     <string name="y_axis_slider_title">Y Axis: %d%%</string>
     <string name="about_content">This app is developed by Kodeco for the purpose of learning about Android development.</string>
-    <string name="app_version">Version 1.0</string>
     <string name="info_icon">Info Button</string>
+    <string name="app_version">Version: %1$s</string>
 </resources>
