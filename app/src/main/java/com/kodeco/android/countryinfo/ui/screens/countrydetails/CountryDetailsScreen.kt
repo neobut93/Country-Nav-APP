@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -34,11 +35,12 @@ fun CountryDetailsScreen(
     viewModel: CountryDetailsViewModel,
     onNavigateUp: () -> Unit,
 ) {
+    val country = viewModel.getCountry.collectAsState()
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    viewModel.getCountry.value?.let { Text(text = it.commonName) }
+                    country.value?.let { Text(text = it.commonName)}
                 },
                 navigationIcon = {
                     IconButton(onClick = {
@@ -54,13 +56,13 @@ fun CountryDetailsScreen(
         },
     ) { padding ->
         LazyColumn(modifier = Modifier.padding(padding)) {
-            item { Text(text = "Capital: ${viewModel.getCountry.value?.mainCapital}") }
-            item { Text(text = "Population: ${viewModel.getCountry.value?.population}") }
-            item { Text(text = "Area: ${viewModel.getCountry.value?.area}") }
+            item { Text(text = "Capital: ${country.value?.mainCapital}") }
+            item { Text(text = "Population: ${country.value?.commonName}") }
+            item { Text(text = "Area: ${country.value?.area}") }
             item {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(viewModel.getCountry.value?.flagUrl)
+                        .data(country.value?.flagUrl)
                         .crossfade(true)
                         .build(),
                     contentDescription = "Flag",
