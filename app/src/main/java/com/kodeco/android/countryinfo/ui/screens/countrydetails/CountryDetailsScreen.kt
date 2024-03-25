@@ -22,7 +22,10 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.kodeco.android.countryinfo.models.Country
-import com.kodeco.android.countryinfo.sample.sampleCountry
+import com.kodeco.android.countryinfo.repositories.CountryRepository
+import com.kodeco.android.countryinfo.sample.sampleCountries
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,7 +38,7 @@ fun CountryDetailsScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = viewModel.getCountry.value!!.commonName)
+                    viewModel.getCountry.value?.let { Text(text = it.commonName) }
                 },
                 navigationIcon = {
                     IconButton(onClick = {
@@ -51,13 +54,13 @@ fun CountryDetailsScreen(
         },
     ) { padding ->
         LazyColumn(modifier = Modifier.padding(padding)) {
-            item { Text(text = "Capital: ${viewModel.getCountry.value!!.mainCapital}") }
-            item { Text(text = "Population: ${viewModel.getCountry.value!!.population}") }
-            item { Text(text = "Area: ${viewModel.getCountry.value!!.area}") }
+            item { Text(text = "Capital: ${viewModel.getCountry.value?.mainCapital}") }
+            item { Text(text = "Population: ${viewModel.getCountry.value?.population}") }
+            item { Text(text = "Area: ${viewModel.getCountry.value?.area}") }
             item {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(viewModel.getCountry.value!!.flagUrl)
+                        .data(viewModel.getCountry.value?.flagUrl)
                         .crossfade(true)
                         .build(),
                     contentDescription = "Flag",
@@ -72,8 +75,16 @@ fun CountryDetailsScreen(
 @Preview
 @Composable
 fun CountryDetailsScreenPreview() {
-//    CountryDetailsScreen(
-//        country = sampleCountry,
-//        onNavigateUp = {},
-//    )
+    CountryDetailsScreen(
+        viewModel = CountryDetailsViewModel(0, repository = object : CountryRepository {
+            override fun fetchCountries(): Flow<List<Country>> = flow {
+                emit(sampleCountries)
+            }
+
+            override fun getCountry(index: Int): Country? {
+                return sampleCountries.getOrNull(index)
+            }
+        }),
+        onNavigateUp = {},
+    )
 }
